@@ -14,19 +14,19 @@ public class StudentServicesApplicationTests {
 	public void contextLoads() {
 	}
 
-/*
+
   @Test
   void whenDivideNumbers_thenExpectWrongResult() {
       double result = StudentServicesApplication.divideNumbers(6, 3);
       Assert.assertEquals(15, result);
   }
-*/
 
+/*
   @Test
   void whenDivideNumbers_thenExpectWrongResult() {
       double result = StudentServicesApplication.divideNumbers(10, 2);
       Assert.assertEquals(5, result, 0 );
   }
-
+*/
 
 }
