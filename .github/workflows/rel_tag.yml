@@ -1,0 +1,50 @@
+name: rel_tag
+
+permissions:
+  checks: write
+  contents: write # needed to create a gh release and tag repo
+  issues: read
+  pull-requests: write
+
+on:
+  workflow_call:
+    inputs:
+      version_tag:
+        description: 'version tag to use'
+        required: false
+        default: "next_tag"
+        type: string
+
+  workflow_dispatch:
+    inputs:
+      version_tag:
+        description: 'version tag to use'
+        required: false
+        default: "next_tag"
+        type: string
+
+jobs:
+  rel_tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # token with write permissions to protected branches
+          # standard github token does not allow this
+          token: ${{ secrets.RELEASE_TOKEN }}
+          # checkout some history so we can build a changelog and release
+          # NOTE: history does not include tags!
+          fetch-depth: 100
+
+      - name: find next version
+        id: version
+        run: ./version_bump.sh
+        env:
+          GHA_TAG: ${{ inputs.version_tag }}
+
+      - name: tag repo create changelog and create release
+        run: ./changelog.sh -t ${{ steps.version.outputs.version_tag }} --release --slack_channel keyevent-dev
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          SLACKTEE_TOKEN: ${{ secrets.SLACKTEE_TOKEN }}
+

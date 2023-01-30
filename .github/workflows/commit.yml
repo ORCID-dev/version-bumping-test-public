@@ -1,0 +1,24 @@
+name: commit
+
+on:
+  push:
+    branches:
+      - '**' # run on any branch
+      - '!main'
+
+# cancel running job if another commit comes in
+concurrency:
+  group: ci-tests-${{ github.ref }}-1
+  cancel-in-progress: true
+
+jobs:
+
+  lint:
+    uses: ./.github/workflows/lint.yml
+    secrets: inherit # pass all secrets
+    permissions:
+      checks: write
+      contents: read
+      issues: read
+      pull-requests: write
+

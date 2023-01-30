@@ -1,0 +1,30 @@
+name: unit_tests_artifact
+
+on:
+  workflow_call:
+    inputs:
+      version_tag:
+        description: 'version tag to use'
+        required: false
+        default: "next_tag"
+        type: string
+
+  workflow_dispatch:
+    inputs:
+      version_tag:
+        description: 'version tag to use'
+        required: false
+        default: "next_tag"
+        type: string
+
+jobs:
+  tst_app1:
+    uses: ./.github/workflows/maven_test_artifact.yml
+    with:
+      context: app1
+
+  tst_app2:
+    uses: ./.github/workflows/maven_test_artifact.yml
+    with:
+      context: app2
+

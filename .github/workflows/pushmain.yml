@@ -1,0 +1,59 @@
+name: pushmain
+
+on:
+#   push:
+#     branches:
+#       - main
+#     # Ignore changes are made as part of the rel_tag workflow to avoid infinite loop
+#     paths-ignore:
+#       - CHANGELOG.md
+#     # Ignore workflow changes
+#       - '.github/**'
+#     # Ignore changes are made as part of the rel_tag workflow to avoid infinite loop
+#     tags-ignore:
+#       - '**'
+# 
+
+  workflow_dispatch:
+    inputs:
+      version_tag:
+        description: |
+          Version tag sets the tag for building new assets and tagging the repo.
+          next_tag will bump to the next patch release e.g 0.0.1 -> 0.0.2 .
+          Commit with a message #minor or #major to bump a different amount.
+        required: false
+        default: "next_tag"
+        type: string
+
+# cancel running job if another commit comes in
+concurrency:
+  group: ci-tests-${{ github.ref }}-1
+  cancel-in-progress: true
+
+jobs:
+  unit_tests:
+    uses: ./.github/workflows/unit_tests.yml
+
+  bld_all:
+    uses: ./.github/workflows/bld_all.yml
+    needs: unit_tests
+    with:
+      version_tag: ${{ inputs.version_tag }}
+    secrets: inherit # pass all secrets
+    permissions:
+      checks: write
+      contents: read
+      issues: read
+      pull-requests: write
+
+  rel_tag:
+    uses: ./.github/workflows/rel_tag.yml
+    needs: bld_all
+    with:
+      version_tag: ${{ inputs.version_tag }}
+    secrets: inherit # pass all secrets
+    permissions:
+      checks: write
+      contents: write
+      issues: read
+      pull-requests: write

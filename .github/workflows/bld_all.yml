@@ -1,0 +1,53 @@
+name: bld_all
+
+permissions:
+  checks: write
+  contents: read
+  issues: read
+  pull-requests: write
+
+on:
+  workflow_call:
+    inputs:
+      version_tag:
+        description: 'version tag to use'
+        required: false
+        default: "next_tag"
+        type: string
+
+  workflow_dispatch:
+    inputs:
+      version_tag:
+        description: 'version tag to use'
+        required: false
+        default: "next_tag"
+        type: string
+
+jobs:
+
+  bld_dock1:
+    uses: ./.github/workflows/bld_docker.yml
+    secrets: inherit # pass all secrets
+    permissions:
+      checks: write
+      contents: read
+      issues: read
+      pull-requests: write
+    with:
+      docker_name: orcid/wibble
+      version_tag: ${{ inputs.version_tag }}
+      context: .
+
+  bld_dock2:
+    uses: ./.github/workflows/bld_docker.yml
+    secrets: inherit # pass all secrets
+    permissions:
+      checks: write
+      contents: read
+      issues: read
+      pull-requests: write
+    with:
+      docker_name: orcid/wibble
+      version_tag: ${{ inputs.version_tag }}
+      context: app2
+
