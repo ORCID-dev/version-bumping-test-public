@@ -1,0 +1,12 @@
+trello_board="ORCID: Tech Ops"
+
+trello_backlog_list="Sprint Backlog"
+trello_backlog_list_id="6203e486224ceb71fd28929c"
+
+trello_in_progress_list="In progress"
+trello_in_progress_list_id="5cdab8d90c2ef87693f7fae9"
+
+trello_submitted_list="Ready on this sprint"
+trello_submitted_list_id="5cdab9c808cbdd84476edc2a"
+
+github_poke_slack_channel=tech-ops
