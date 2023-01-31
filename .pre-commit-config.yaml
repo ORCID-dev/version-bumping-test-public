@@ -27,6 +27,11 @@ repos:
     exclude: '.ytt.yaml$'
     types: [yaml]
 
+- repo: https://github.com/rhysd/actionlint
+  rev: main
+  hooks:
+    - id: actionlint
+
 #   - repo: https://github.com/koalaman/shellcheck-precommit
 #     rev: v0.9.0
 #     hooks:
@@ -34,25 +39,25 @@ repos:
 # 
 
 
-- repo: local # Use a local repository
-  hooks:
-#       - id: actionlint
-#         name: Lint GitHub Actions workflow files
-#         description: Runs actionlint to lint GitHub Actions workflow files
-#         language: system
-#         types: ["yaml"]
-#         files: "^.github/workflows/"
-#         entry: actionlint
-#         verbose: true
-
-  - id: actionlint-docker
-    name: Lint GitHub Actions workflow file Docker
-    description: Runs actionlint Docker image to lint GitHub Actions workflow files
-    language: docker_image
-    types: ["yaml"]
-    files: "^.github/workflows/"
-    entry: rhysd/actionlint:1.6.22
-
+# - repo: local # Use a local repository
+#   hooks:
+# #       - id: actionlint
+# #         name: Lint GitHub Actions workflow files
+# #         description: Runs actionlint to lint GitHub Actions workflow files
+# #         language: system
+# #         types: ["yaml"]
+# #         files: "^.github/workflows/"
+# #         entry: actionlint
+# #         verbose: true
+# 
+#   - id: actionlint-docker
+#     name: Lint GitHub Actions workflow file Docker
+#     description: Runs actionlint Docker image to lint GitHub Actions workflow files
+#     language: docker_image
+#     types: ["yaml"]
+#     files: "^.github/workflows/"
+#     entry: rhysd/actionlint:1.6.22
+# 
 ci:
     autofix_commit_msg: |
         [pre-commit.ci] auto fixes from pre-commit.com hooks
