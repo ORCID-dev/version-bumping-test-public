@@ -18,6 +18,15 @@ repos:
     types: [text, executable]
     stages: [commit, push, manual]
 
+  - id: check-yaml
+    name: check yaml
+    description: checks yaml files for parseable syntax.
+    entry: check-yaml
+    args: ["--allow-multiple-documents"]
+    language: python
+    exclude: '.ytt.yaml$'
+    types: [yaml]
+
 #   - repo: https://github.com/koalaman/shellcheck-precommit
 #     rev: v0.9.0
 #     hooks:
