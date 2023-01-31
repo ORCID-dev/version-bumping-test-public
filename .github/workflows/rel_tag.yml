@@ -1,5 +1,6 @@
 name: rel_tag
 
+typo
 permissions:
   checks: write
   contents: write # needed to create a gh release and tag repo
