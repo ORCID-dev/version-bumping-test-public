@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - '**' # run on any branch
-      - '!main'
+#      - '!main'
 
 # cancel running job if another commit comes in
 concurrency:
@@ -15,10 +15,5 @@ jobs:
 
   lint:
     uses: ./.github/workflows/lint.yml
-    secrets: inherit # pass all secrets
-    permissions:
-      checks: write
-      contents: read
-      issues: read
-      pull-requests: write
+#    secrets: inherit # pass all secrets
 
