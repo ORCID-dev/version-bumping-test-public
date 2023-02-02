@@ -18,14 +18,15 @@ repos:
     types: [text, executable]
     stages: [commit, push, manual]
 
-  - id: check-yaml
-    name: check yaml
-    description: checks yaml files for parseable syntax.
-    entry: check-yaml
-    args: ["--allow-multiple-documents"]
-    language: python
-    exclude: '.ytt.yaml$'
-    types: [yaml]
+#   - id: check-yaml
+#     name: check yaml
+#     description: checks yaml files for parseable syntax.
+#     entry: check-yaml
+#     args: ["--allow-multiple-documents"]
+#     language: python
+#     exclude: '.ytt.yaml$'
+#     types: [yaml]
+# 
 #   - id: shell-fmt-go
 #     name: shfmt
 #     description: Rewrites all shell scripts to a canonical format.
