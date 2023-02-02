@@ -67,7 +67,7 @@ repos:
       name: actionlint
       entry: actionlint
       language: golang
-      additional_dependencies: [github.com/rhysd/actionlint/cmd/actionlint@v1.6.23]
+      additional_dependencies: [github.com/rhysd/actionlint/cmd/actionlint@v1.6.22]
       types: [yaml]
       files: "^.github/workflows/"
 
