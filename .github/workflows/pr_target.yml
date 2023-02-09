@@ -1,0 +1,35 @@
+name: pr_target
+
+# DANGER
+#
+# This is a potentially dangerous as it runs an untrusted fork with access to our secrets
+#
+# The untrusted fork user cannot change this workflow and then trigger it
+# however they can alter anything in the source tree so any run: xxx commands in a standard workflow
+# could be subverted
+
+on:
+  pull_request_target:
+
+  workflow_call:
+
+# cancel running job if another commit comes in
+concurrency:
+  group: ci-tests-${{ github.ref }}-1
+  cancel-in-progress: true
+
+jobs:
+  one:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+    steps:
+      - name: Set env as secret
+        env:
+          MY_VAL: ${{ secrets.RELEASE_USERNAME }}
+        run: |
+          import os
+          for q in (os.getenv("MY_VAL")):
+            print(q)
+        shell: python
+
+
